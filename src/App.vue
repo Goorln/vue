@@ -22,7 +22,7 @@
 			</router-link>
 			<router-link class="mui-tab-item" to="/shopcar">
 				<span class="mui-icon mui-icon-contact">
-					<span class="mui-badge">0</span>
+					<span class="mui-badge" id="badge">0</span>
 				</span>
 				<span class="mui-tab-label">购物车</span>
 			</router-link>
@@ -35,7 +35,11 @@
 </template>
 
 <script>
-
+    import {vm,COUNTSTR} from './kits/vm.js';
+    vm.$on(COUNTSTR,function (count) {
+        var badge = document.getElementById('badge');
+        badge.innerText = parseInt(badge.innerText)+count;
+    });
 	export default{
 		data(){
 			return {
@@ -63,6 +67,9 @@
 </script>
 
 <style scoped>
+    mt-header {
+        position: relative;
+    }
 	#back {
 		width: 60px;
 		position: absolute;
