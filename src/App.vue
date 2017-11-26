@@ -3,7 +3,7 @@
 	<div>
 		<!-- 1.0 利用mint-ui中的header组件实现整个系统的头部 -->
 		<mt-header fixed title="Vue商城系统"></mt-header>
-		<div v-if="isshow" id="back">
+		<div id="back" v-if="isshow">
 				<a href="javascript:void(0)" @click="backto">返回</a>
 		</div>
 		<!-- 2.0 利用vue-router的 <router-view>进行占位 -->
@@ -20,7 +20,7 @@
 				</span>
 				<span class="mui-tab-label">会员</span>
 			</router-link>
-			<router-link class="mui-tab-item" to="/shopcar">
+			<router-link class="mui-tab-item" to="/shopcar/car">
 				<span class="mui-icon mui-icon-contact">
 					<span class="mui-badge" id="badge">0</span>
 				</span>
@@ -57,7 +57,8 @@
 		},
 		methods:{
 			backto(){
-				this.$router.go(-1)
+			    //利用路由中的go方法返回上一个页面，这个是vue-router的方法
+				this.$router.go(-1);
 			}
 		},
 		created(){
@@ -67,19 +68,16 @@
 </script>
 
 <style scoped>
-    mt-header {
-        position: relative;
-    }
 	#back {
 		width: 60px;
-		position: absolute;
+		position: fixed;
 		top: 10px;
 		left: 10px;
-		z-index: 999;
+		z-index: 9999;
 	}
 	#back a{
-	color:white;
-	font-size: 16px;
-	font-weight: bold;
+        color:white;
+        font-size: 16px;
+        font-weight: bold;
 	}
 </style>

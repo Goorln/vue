@@ -1,4 +1,4 @@
-<template xmlns="">
+es<template xmlns="">
 	<div id="tmpl">
 		<div class="slider">
 			<slider :imgs="imgs"></slider>	
@@ -12,6 +12,7 @@
 				</li>
 				<li class="inputli">
 					购买数量：<inputnumber class="inputnumber" v-on:abc="getcount"></inputnumber>
+                    <transition name="show" @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter"><div v-if="isshow" class="ball"></div></transition>
                 </li>
 				<li>
 					<mt-button type="primary" size="small" >立即购买</mt-button>	
@@ -45,13 +46,15 @@
 	import common from '../../kits/common.js';
 	import { Toast } from 'mint-ui';
 	import {vm,COUNTSTR} from '../../kits/vm.js';
+	import {setItem,valueObj} from '../../kits/localSg.js';
 	export default{
 		data(){
 			return{
 				id:0,
                 inputNumberCount:1,
 				imgs:[],
-				info:{}
+				info:{},
+                isshow:false  //控制小球隐藏
 			}
 		},
 		created(){
@@ -90,6 +93,24 @@
             toshopcar(){
                 //触发事件
                 vm.$emit(COUNTSTR,this.inputNumberCount);
+                //将数据保存到localStorage中
+                valueObj.goodsid = this.id;
+                valueObj.count = this.inputNumberCount;
+                setItem(valueObj);
+
+                this.isshow = !this.isshow;
+            },
+            beforeEnter(el){
+                el.style.transform = 'translate(0px,0px)';
+            },
+            enter(el,done){
+                //保证小球出现状况的代码
+                el.offsetWidth;
+                el.style.transform = 'translate(75px,380px)';
+                done();
+            },
+            afterEnter(el){
+                this.isshow = !this.isshow;
             }
 		},
 		components:{
@@ -143,5 +164,16 @@
         position: absolute;
         left: 100px;
         top: 8px;
+    }
+    .ball {
+        width: 20px;
+        height: 20px;
+        background-color: red;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 150px;
+        transition: all 0.4s ease;
+        z-index: 100;
     }
 </style>

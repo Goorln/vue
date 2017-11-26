@@ -19,6 +19,7 @@ import goodslist from './components/goods/goodslist.vue';
 import goodsinfo from './components/goods/goodsinfo.vue';
 import goodsdesc from './components/goods/goodsdesc.vue';
 import goodscomment from './components/goods/goodscomment.vue';
+import car from './components/shopcar/car.vue';
 
 
 // 3.0.2 定义路由规则
@@ -36,7 +37,8 @@ var router = new vueRouter({
 		{path:'/goods/goodslist',component:goodslist},
 		{path:'/goods/goodsinfo/:id',component:goodsinfo},
         {path:'/goods/goodsdesc/:id',component:goodsdesc},
-        {path:'/goods/goodscomment/:id',component:goodscomment}
+        {path:'/goods/goodscomment/:id',component:goodscomment},
+        {path:'/shopcar/car',component:car}
 	]
 	});
 
@@ -65,6 +67,9 @@ Vue.filter('datefmt',function(input,fmtstring){
 //使用图片预览组件
 import VuePreview from 'vue-preview';
 Vue.use(VuePreview);
+
+/*import { Switch } from 'mint-ui';
+Vue.component(Switch.name, Switch);*/
 
 new Vue({
 	el:'#app',
